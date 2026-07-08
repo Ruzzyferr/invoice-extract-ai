@@ -2,7 +2,7 @@
 
 Stop retyping invoices. Upload a PDF or a photo of an invoice — or paste its raw text — and get clean, structured data back: vendor, dates, line items, totals. Export the result to CSV in one click.
 
-**Live demo:** _deploying — link coming soon_
+**Live demo:** https://invoice-extract-ai.vercel.app
 
 Built as a demo for accounting and back-office automation: the same pattern applies to receipts, purchase orders, delivery notes and any other semi-structured document your team currently copies into a spreadsheet by hand.
 
