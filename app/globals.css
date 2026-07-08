@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Ledger palette */
+  --color-paper: #f7f8f5;
+  --color-card: #ffffff;
+  --color-ink: #1b2420;
+  --color-ink-soft: #57635c;
+  --color-ink-faint: #8b968f;
+  --color-ledger: #1e6e52;
+  --color-ledger-deep: #14523c;
+  --color-ledger-tint: #e8f1ec;
+  --color-amber-ink: #8a5f10;
+  --color-amber-bg: #fbf3e0;
+  --color-amber-line: #e5cf9d;
+  --color-hairline: #dce0da;
+  --color-hairline-strong: #c3cac2;
+  --color-danger: #a4392f;
+
+  /* Type roles */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+::selection {
+  background: var(--color-ledger);
+  color: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:focus-visible {
+  outline: 2px solid var(--color-ledger);
+  outline-offset: 2px;
+}
+
+/* Faint ruled-paper texture behind the workbench */
+.ruled-bg {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(27, 36, 32, 0.045) 31px,
+    rgba(27, 36, 32, 0.045) 32px
+  );
+}
+
+/* Dotted leaders in the totals block: label ..... value */
+.leader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.leader::before {
+  content: "";
+  order: 2;
+  flex: 1;
+  border-bottom: 1.5px dotted var(--color-hairline-strong);
+  transform: translateY(-0.3em);
+}
+.leader > .leader-label {
+  order: 1;
+}
+.leader > .leader-value {
+  order: 3;
+}
+
+/* Scanning shimmer while extraction runs */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(420px);
   }
 }
+.scanline {
+  animation: scanline 1.6s linear infinite;
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pulse-row {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+.pulse-row {
+  animation: pulse-row 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanline,
+  .pulse-row {
+    animation: none;
+  }
+  .scanline {
+    display: none;
+  }
+  .pulse-row {
+    opacity: 0.5;
+  }
 }
